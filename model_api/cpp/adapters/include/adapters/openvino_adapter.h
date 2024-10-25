@@ -31,9 +31,13 @@ public:
     OpenVINOInferenceAdapter() {}
 
     virtual InferenceOutput infer(const InferenceInput& input) override;
+    virtual void infer(const InferenceInput& input, InferenceOutput& output) override;
     virtual void loadModel(const std::shared_ptr<const ov::Model>& model, ov::Core& core,
                                                     const std::string& device = "", const ov::AnyMap& compilationConfig = {}) override;
     virtual ov::Shape getInputShape(const std::string& inputName) const override;
+    virtual ov::Shape getOutputShape(const std::string& outputName) const override;
+    virtual ov::element::Type_t getInputDatatype(const std::string& inputName) const override;
+    virtual ov::element::Type_t getOutputDatatype(const std::string& outputName) const override;
     virtual std::vector<std::string> getInputNames() const override;
     virtual std::vector<std::string> getOutputNames() const override;
     virtual const ov::AnyMap& getModelConfig() const override;
